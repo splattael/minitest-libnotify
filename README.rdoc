@@ -1,6 +1,6 @@
 = minitest-libnotify
 
-Test notifier for minitest via libnotify.
+Test notifier for minitest[https://github.com/seattlerb/minitest] via libnotify[https://github.com/splattael/libnotify].
 
 Source[http://github.com/splattael/minitest-libnotify] |
 RDoc[http://rdoc.info/github/splattael/minitest-libnotify/master/file/README.rdoc]
