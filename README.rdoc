@@ -3,6 +3,7 @@
 Test notifier for minitest via libnotify.
 
 Source[http://github.com/splattael/minitest-libnotify] |
+RDoc[http://rdoc.info/github/splattael/minitest-libnotify/master/file/README.rdoc]
 
 == Usage
 

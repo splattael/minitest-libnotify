@@ -2,6 +2,15 @@ require 'minitest/unit'
 require 'libnotify'
 
 module MiniTest
+  # Test notifier for minitest via libnotify.
+  #
+  # == Usage
+  #
+  # In your test helper put:
+  #
+  #   require 'minitest/autorun'
+  #   require 'minitest/libnotify'
+  #
   class Libnotify
     VERSION = "0.0.1"
 
