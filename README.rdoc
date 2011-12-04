@@ -1,0 +1,26 @@
+= minitest-libnotify
+
+Test notifier for minitest via libnotify.
+
+Source[http://github.com/splattael/minitest-libnotify] |
+
+== Usage
+
+  require 'minitest/autorun'
+  require 'minitest/libnotify'
+
+== Installation
+
+  gem install minitest-libnotify
+
+== Authors
+
+* Peter Suschlik (http://github.com/splattael)
+
+== License
+
+MIT License[http://www.opensource.org/licenses/mit-license.php]
+
+== TODO
+
+* Write tests
