@@ -1,5 +1,6 @@
 require 'minitest/unit'
 require 'libnotify'
+require 'minitest/libnotify/version'
 
 module MiniTest
   # Test notifier for minitest via libnotify.
@@ -12,18 +13,19 @@ module MiniTest
   #   require 'minitest/libnotify'
   #
   class Libnotify
-    VERSION = "0.0.1"
-
     def initialize io
       @io = io
       @libnotify = begin
         require 'libnotify'
         ::Libnotify.new(:timeout => 2.5, :append => false)
+      rescue => e
+        warn e
+        false
       end
     end
 
     def puts(*o)
-      if o.first =~ /(\d+) failures, (\d+) errors/
+      if @libnotify && o.first =~ /(\d+) failures, (\d+) errors/
         description = [ defined?(RUBY_ENGINE) ? RUBY_ENGINE : "ruby", RUBY_VERSION, RUBY_PLATFORM ].join(" ")
         @libnotify.body = o.first
         if $1.to_i > 0 || $2.to_i > 0 # fail?
@@ -36,9 +38,8 @@ module MiniTest
           @libnotify.icon_path = "face-laugh.*"
         end
         @libnotify.show!
-      else
-        @io.puts(*o)
       end
+      @io.puts(*o)
     end
 
     def method_missing(msg, *args, &block)

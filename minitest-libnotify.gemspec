@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "minitest/libnotify"
+require "minitest/libnotify/version"
 
 Gem::Specification.new do |s|
   s.name        = "minitest-libnotify"
