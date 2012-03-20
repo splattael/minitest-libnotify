@@ -71,6 +71,10 @@ module MiniTest
       @io.send(msg, *args, &block)
     end
 
+    def respond_to?(msg)
+      @io.respond_to?(msg) || super
+    end
+
     private
 
     def libnotify
