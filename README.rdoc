@@ -14,6 +14,39 @@ RDoc[http://rdoc.info/github/splattael/minitest-libnotify/master/file/README.rdo
 
   gem install minitest-libnotify
 
+== Config
+
+=== Tweaking
+
+  require 'minitest/autorun'
+  require 'minitest/libnotify'
+
+  reporter = MiniTest::Unit.output
+  reporter.config[:global][:description]  = "TESTS"
+  reporter.config[:pass][:description]    = proc { |desc| "#{desc} :)" }
+  reporter.config[:fail][:description]    = proc { |desc| "#{desc} :(" }
+  reporter.config[:fail][:icon_path]      = "face-crying.*"
+
+=== Default config
+
+  reporter.default_config = {
+    :global => {
+      :timeout      => 2.5,
+      :append       => false,
+      :description  => proc { [ defined?(RUBY_ENGINE) ? RUBY_ENGINE : "ruby", RUBY_VERSION, RUBY_PLATFORM ].join(" ") },
+    },
+    :pass => {
+      :description  => proc { |description| ":-) #{description}" },
+      :urgency      => :critical,
+      :icon_path    => "face-laugh.*"
+    },
+    :fail => {
+      :description  => proc { |description| ":-( #{description}" },
+      :urgency    => :critical,
+      :icon_path  => "face-angry.*"
+    }
+  }
+
 == Authors
 
 * Peter Suschlik (http://github.com/splattael)
