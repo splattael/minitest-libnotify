@@ -9,3 +9,5 @@ reporter.config[:fail][:icon_path]      = "face-crying*"
 
 reporter.puts "0 failures, 1 errors"
 reporter.puts "0 failures, 0 errors"
+
+reporter.puts "other"

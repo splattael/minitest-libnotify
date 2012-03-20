@@ -30,6 +30,7 @@ module MiniTest
     # Default configuration
     self.default_config = {
       :global => {
+        :regexp       => /(\d+) failures, (\d+) errors/,
         :timeout      => 2.5,
         :append       => false,
         :description  => proc { [ defined?(RUBY_ENGINE) ? RUBY_ENGINE : "ruby", RUBY_VERSION, RUBY_PLATFORM ].join(" ") },
@@ -48,22 +49,14 @@ module MiniTest
 
     attr_accessor :config
 
-    def initialize io, config = self.class.default_config
+    def initialize(io, config = self.class.default_config)
       @io         = io
       @libnotify  = nil
       @config     = config.dup
     end
 
     def puts(*o)
-      if libnotify && ((body = o.first) =~ /(\d+) failures, (\d+) errors/)
-        default_description = config_for(:description)
-        state = $1.to_i > 0 || $2.to_i > 0 ? :fail : :pass
-        libnotify.body       = config_for(:body, state, body)
-        libnotify.summary    = config_for(:description, state, default_description)
-        libnotify.urgency    = config_for(:urgency, state)
-        libnotify.icon_path  = config_for(:icon_path, state)
-        libnotify.show!
-      end
+      notify(o.first) if libnotify
       @io.puts(*o)
     end
 
@@ -76,6 +69,19 @@ module MiniTest
     end
 
     private
+
+    def notify(body)
+      match = config_for(:regexp).match(body)
+      return unless match
+      state = match.captures.any? { |c| c.to_i > 0 } ? :fail : :pass
+
+      default_description = config_for(:description)
+      libnotify.body      = config_for(:body, state, body)
+      libnotify.summary   = config_for(:description, state, default_description)
+      libnotify.urgency   = config_for(:urgency, state)
+      libnotify.icon_path = config_for(:icon_path, state)
+      libnotify.show!
+    end
 
     def libnotify
       if @libnotify.nil?
