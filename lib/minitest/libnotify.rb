@@ -62,7 +62,6 @@ module MiniTest
         libnotify.summary    = config_for(:description, state, default_description)
         libnotify.urgency    = config_for(:urgency, state)
         libnotify.icon_path  = config_for(:icon_path, state)
-        p libnotify
         libnotify.show!
       end
       @io.puts(*o)
