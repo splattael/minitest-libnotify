@@ -1,5 +1,5 @@
 module MiniTest
-  class Libnotify
+  module Libnotify
     VERSION = "0.2.2"
   end
 end

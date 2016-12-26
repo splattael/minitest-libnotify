@@ -1,5 +1,5 @@
 require "minitest/autorun"
-#require "minitest/libnotify"
+require "minitest/libnotify"
 
 class PassTest < Minitest::Test
   def test_pass
